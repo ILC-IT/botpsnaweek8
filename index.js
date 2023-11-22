@@ -1,7 +1,6 @@
-const fs = require('node:fs');
-const path = require('node:path');
+const fs = require('fs');
+const path = require('path');
 const { Client, Collection, Events, GatewayIntentBits, EmbedBuilder } = require('discord.js')
-const axios = require('axios');
 require('dotenv/config')
 
 // initial value
@@ -53,8 +52,9 @@ function getMapBonusRewardWeekNumber(){
     mapBonusRewardWeek = mapBonusRewardweekNumber(givenDate);
     const channel = client.channels.cache.get(idChannelTest);
     if (mapBonusRewardWeek === 8){ // best week = 8
-        if (day === 5){ // day = Wednesday
+        if (day === 3){ // day 3 = Wednesday
             if (channel){
+                console.log('Hoy es el dia ',givenDate)
                 sendNotification(channel);
             }else{
                 console.error(`Channel ${idChannelTest} not found`);
