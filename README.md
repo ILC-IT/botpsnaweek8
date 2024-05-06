@@ -1,8 +1,9 @@
 # Notification example
-![Example notificaton](./assets/imgapp/bot.png)
+![Example notificaton](./assets/imgapp/bot2.png)
 
 # What does the bot do?
-- It sends a notification to IDCHANNEL on week number 8, Wednesday, after 10am (week-day-hour can be customized in the code) to use [psna](https://wiki.guildwars2.com/wiki/Map_bonus_reward#Central_Tyria_reward_track_rotation) tokens at Fireheart Rise [&BBsCAAA=].
+- It sends a notification to IDCHANNEL on the best week number, day, hour to use [psna](https://wiki.guildwars2.com/wiki/Map_bonus_reward#Central_Tyria_reward_track_rotation) tokens based on your desired dates. 
+- You can customize *Week number*, *day*, *hour* and *best map per week* in the code. Info can be found at [Fast Farming](https://fast.farming-community.eu/conversions/karma) and [gw2 wiki](https://wiki.guildwars2.com/wiki/Map_bonus_reward#Central_Tyria_reward_track_rotation).
 - Slash command /week to return current week number (need the `applications.commands` scope authorized in the guild, and `bot permissions` related to messages).
 
 # Install

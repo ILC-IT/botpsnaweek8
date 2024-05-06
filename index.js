@@ -3,10 +3,39 @@ const path = require('path');
 const { Client, Collection, Events, GatewayIntentBits, EmbedBuilder } = require('discord.js')
 require('dotenv/config')
 
-// initial value
+// initial value, do not change
 let mapBonusRewardWeek = 1;
 // Channel ID
 const idChannelTest = process.env.IDCHANNEL;
+
+
+
+
+/////////////////////////////// CUSTOMIZE HERE /////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+const weekToAlert = 2; //1-8
+const dayToAlert = 3; //0 Sunday, 1 Monday, 2 Tuesday, 3 Wednesday, 4 Thursday, 5 Friday, 6 Saturday
+const hourToAlert = 10; //0-23
+const minuteToAlert = 0; //0-59
+const secondToAlert = 0; //0-59
+
+//customize best maps per week
+let bestMapW1 = "Straits of Devastation [&BPcCAAA=]"; //week1
+let bestMapW2 = "Frostgorge Sound [&BHwCAAA=]"; //week2
+let bestMapW3 = "Southsun Cove [&BNUGAAA=]"; //week3
+let bestMapW4= "Cursed Shore [&BB4DAAA=]"; //week4
+let bestMapW5 = "Fireheart Rise [&BBsCAAA=]"; //week5
+let bestMapW6 = "Mount Maelstrom [&BNMCAAA=]"; //week6
+let bestMapW7 = "Fireheart Rise [&BBsCAAA=]"; //week7
+let bestMapW8 = "Frostgorge Sound [&BHwCAAA=]"; //week8
+//let bestMapW = "Mount Maelstrom [&BNMCAAA=]" //week
+//let bestMapW = "Cursed Shore [&BB4DAAA=]" //week
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+let map = [bestMapW1, bestMapW2, bestMapW3, bestMapW4, bestMapW5, bestMapW6, bestMapW7, bestMapW8];
+
+
+
 
 const client = new Client({
     intents: [
@@ -39,7 +68,9 @@ const sendNotification = (channel) => {
     // define embed notification
     const embed = new EmbedBuilder()
         .setTitle(`GW2 PSNA BEST WEEK ${mapBonusRewardWeek}`)
-        .setDescription(`This week is number ${mapBonusRewardWeek}, the best to use PSNA tokens at Fireheart Rise [&BBsCAAA=]`)
+        .setDescription(`This week is number ${mapBonusRewardWeek}, the best to use PSNA tokens at ${map[mapBonusRewardWeek-1]} \n
+        [Fast Farming](https://fast.farming-community.eu/conversions/karma) - [Wiki](https://wiki.guildwars2.com/wiki/Map_bonus_reward#Central_Tyria_reward_track_rotation) \n
+        \`\`\`Best PSNA: ${map[mapBonusRewardWeek-1]}\`\`\` `)
         .setColor('Random')
     // send notification to channel    
     channel.send({embeds: [embed]});
@@ -51,8 +82,8 @@ function getMapBonusRewardWeekNumber(){
     const day = givenDate.getDay();
     mapBonusRewardWeek = mapBonusRewardweekNumber(givenDate);
     const channel = client.channels.cache.get(idChannelTest);
-    if (mapBonusRewardWeek === 8){ // best week = 8
-        if (day === 3){ // day 3 = Wednesday
+    if (mapBonusRewardWeek === weekToAlert){
+        if (day === dayToAlert){
             if (channel){
                 console.log('Hoy es el dia ',givenDate)
                 sendNotification(channel);
@@ -75,10 +106,10 @@ function mapBonusRewardweekNumber(date){
     return weekNumberMod8;
 }
 
-// Function to schedule the notification check, once per day at 10am
+// Function to schedule the notification check, once per day at hourToAlert
 const scheduleNotification = () => {
     const now = new Date();
-    const targetTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10, 0, 0);  // 10 a.m.
+    const targetTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hourToAlert, minuteToAlert, secondToAlert);
 
     if (now > targetTime) {
         targetTime.setDate(targetTime.getDate() + 1);
